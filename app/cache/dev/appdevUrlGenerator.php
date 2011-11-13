@@ -24,6 +24,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
        '_configurator_step' => true,
        '_configurator_final' => true,
        'anonsiero_user_default_index' => true,
+       'anonsiero_homepage_homepage_index' => true,
        'fos_user_security_login' => true,
        'fos_user_security_check' => true,
        'fos_user_security_logout' => true,
@@ -113,7 +114,12 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
 
     private function getanonsiero_user_default_indexRouteInfo()
     {
-        return array(array (  0 => 'name',), array (  '_controller' => 'Anonsiero\\UserBundle\\Controller\\DefaultController::indexAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'name',  ),  1 =>   array (    0 => 'text',    1 => '/hello',  ),));
+        return array(array (  0 => 'name',), array (  '_controller' => 'Anonsiero\\UserBundle\\Controller\\DefaultController::indexAction',), array (), array (  0 =>   array (    0 => 'variable',    1 => '/',    2 => '[^/]+?',    3 => 'name',  ),  1 =>   array (    0 => 'text',    1 => '/user/hello',  ),));
+    }
+
+    private function getanonsiero_homepage_homepage_indexRouteInfo()
+    {
+        return array(array (), array (  '_controller' => 'Anonsiero\\HomepageBundle\\Controller\\HomepageController::indexAction',), array (), array (  0 =>   array (    0 => 'text',    1 => '/',  ),));
     }
 
     private function getfos_user_security_loginRouteInfo()

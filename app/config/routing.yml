@@ -1,7 +1,11 @@
 AnonsieroUserBundle:
     resource: "@AnonsieroUserBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /user/
+
+AnonsieroHomepageBundle:
+  resource: '@AnonsieroHomepageBundle/Controller/HomepageController.php'
+  type: annotation 
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

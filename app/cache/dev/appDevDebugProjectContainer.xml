@@ -19,6 +19,7 @@
       <parameter key="JMSSecurityExtraBundle">JMS\SecurityExtraBundle\JMSSecurityExtraBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="AnonsieroUserBundle">Anonsiero\UserBundle\AnonsieroUserBundle</parameter>
+      <parameter key="AnonsieroHomepageBundle">Anonsiero\HomepageBundle\AnonsieroHomepageBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -1044,6 +1045,12 @@
         <argument>fr</argument>
         <argument>messages</argument>
       </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>/home/adrian/www/anonsiero/src/Anonsiero/HomepageBundle/Resources/translations/messages.fr.xliff</argument>
+        <argument>fr</argument>
+        <argument>messages</argument>
+      </call>
     </service>
     <service id="translation.loader.php" class="Symfony\Component\Translation\Loader\PhpFileLoader">
       <tag name="translation.loader" alias="php"/>
@@ -1553,7 +1560,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>4ebef8fcf28a9</argument>
+            <argument>4ebf8f46311e0</argument>
           </service>
         </argument>
       </argument>
@@ -1744,7 +1751,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>4ebef8fcf28a9</argument>
+            <argument>4ebf8f46311e0</argument>
             <argument type="service" id="monolog.logger.security"/>
           </service>
         </argument>
@@ -2426,6 +2433,33 @@
                   <argument type="service" id="templating.loader"/>
                   <argument>AnonsieroUserBundle</argument>
                   <argument>/home/adrian/www/anonsiero/src/Anonsiero/UserBundle/Resources/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>twig</argument>
+      </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource" public="false">
+            <tag name="assetic.templating.twig"/>
+            <tag name="assetic.formula_resource" loader="twig"/>
+            <argument type="collection">
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>AnonsieroHomepageBundle</argument>
+                  <argument>/home/adrian/www/anonsiero/app/Resources/AnonsieroHomepageBundle/views</argument>
+                  <argument>/^[^.]+\.[^.]+\.twig$/</argument>
+                </service>
+              </argument>
+              <argument type="service">
+                <service class="%assetic.directory_resource.class%" public="false">
+                  <argument type="service" id="templating.loader"/>
+                  <argument>AnonsieroHomepageBundle</argument>
+                  <argument>/home/adrian/www/anonsiero/src/Anonsiero/HomepageBundle/Resources/views</argument>
                   <argument>/^[^.]+\.[^.]+\.twig$/</argument>
                 </service>
               </argument>

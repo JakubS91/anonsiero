@@ -85,8 +85,16 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // anonsiero_user_default_index
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
+        if (0 === strpos($pathinfo, '/user/hello') && preg_match('#^/user/hello/(?P<name>[^/]+?)$#xs', $pathinfo, $matches)) {
             return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Anonsiero\\UserBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'anonsiero_user_default_index'));
+        }
+
+        // anonsiero_homepage_homepage_index
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'anonsiero_homepage_homepage_index');
+            }
+            return array (  '_controller' => 'Anonsiero\\HomepageBundle\\Controller\\HomepageController::indexAction',  '_route' => 'anonsiero_homepage_homepage_index',);
         }
 
         // fos_user_security_login
