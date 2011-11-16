@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Anonsiero\UserBundle\AnonsieroUserBundle(),
             new Anonsiero\HomepageBundle\AnonsieroHomepageBundle(),
+            new Anonsiero\AdvertBundle\AnonsieroAdvertBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
