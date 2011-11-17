@@ -1,3 +1,8 @@
+AnonsieroAdvertBundle:
+    resource: "@AnonsieroAdvertBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 AnonsieroUserBundle:
     resource: "@AnonsieroUserBundle/Controller/"
     type:     annotation
