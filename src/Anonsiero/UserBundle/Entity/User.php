@@ -21,7 +21,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="Anonsiero\AdvertBundle\Entity\Advert", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Anonsiero\AdvertBundle\Entity\Advert", mappedBy="user", cascade={"persist", "remove", "merge"})
      * @var type 
      */
     private $adverts;

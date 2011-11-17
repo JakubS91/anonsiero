@@ -1,1 +1,14 @@
-Hello {{ name }}!
+{% macro createTree(parentID, tree) %}
+    {% if tree[parentID] is defined %}
+        <ul>
+        {% for element in tree[parentID] %}
+            <li>
+                <a href="{{ path('_adverts', { 'id' : element.id }) }}">{{ element.name }}</a>
+                {{ _self.createTree(element.id, tree) }}
+            </li>
+        {% endfor %}  
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{{ _self.createTree(1, categoriesTree) }}

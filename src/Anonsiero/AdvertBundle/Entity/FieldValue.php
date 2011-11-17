@@ -5,12 +5,12 @@ namespace Anonsiero\AdvertBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Anonsiero\AdvertBundle\Entity\AdvertHasField
+ * Anonsiero\AdvertBundle\Entity\FieldValue
  *
- * @ORM\Table(name="advert__adverts_has_fields")
- * @ORM\Entity(repositoryClass="Anonsiero\AdvertBundle\Entity\AdvertHasFieldRepository")
+ * @ORM\Table(name="advert__fields_value")
+ * @ORM\Entity(repositoryClass="Anonsiero\AdvertBundle\Entity\FieldValueRepository")
  */
-class AdvertHasField
+class FieldValue
 {
     /**
      * @var integer $id
@@ -29,17 +29,9 @@ class AdvertHasField
     private $value;
     
     /**
-     * @var Advert $advert 
-     * 
-     * @ORM\ManyToOne(targetEntity="Anonsiero\AdvertBundle\Entity\Advert", inversedBy="advertHasFields")
-     * @ORM\JoinColumn(name="advert_id", referencedColumnName="id", nullable=false)
-     */
-    private $advert;
-    
-    /**
      * @var Field $field 
      * 
-     * @ORM\ManyToOne(targetEntity="Anonsiero\AdvertBundle\Entity\Field", inversedBy="advertHasFields")
+     * @ORM\ManyToOne(targetEntity="Anonsiero\AdvertBundle\Entity\Field", inversedBy="fieldValues")
      * @ORM\JoinColumn(name="field_id", referencedColumnName="id", nullable=false)
      */
     private $field;
@@ -73,26 +65,6 @@ class AdvertHasField
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Set advert
-     *
-     * @param Anonsiero\AdvertBundle\Entity\Advert $advert
-     */
-    public function setAdvert(\Anonsiero\AdvertBundle\Entity\Advert $advert)
-    {
-        $this->advert = $advert;
-    }
-
-    /**
-     * Get advert
-     *
-     * @return Anonsiero\AdvertBundle\Entity\Advert 
-     */
-    public function getAdvert()
-    {
-        return $this->advert;
     }
 
     /**
