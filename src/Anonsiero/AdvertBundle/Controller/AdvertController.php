@@ -23,7 +23,7 @@ class AdvertController extends Controller
     }
     
     /**
-     * @Route("/adverts/{id}", name="_adverts123")
+     * @Route("/adverts/{id}", name="_adverts")
      * @Template()
      */
     public function advertsAction($id)
