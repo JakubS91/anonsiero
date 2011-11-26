@@ -3,7 +3,7 @@
         <ul>
         {% for element in tree[parentID] %}
             <li>
-                <a href="{{ path('_adverts', { 'id' : element.id }) }}">{{ element.name }}</a>
+                <a href="{{ path('_adverts', { 'idCategory' : element.id }) }}">{{ element.name }}</a>
                 {{ _self.createTree(element.id, tree) }}
             </li>
         {% endfor %}  
