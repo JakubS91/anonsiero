@@ -15,7 +15,9 @@ class CategoryRepository extends EntityRepository
     public function getCategories()
     {
         $query = $this->createQueryBuilder('a')
-                    ->select('a.id, a.name')->join('a.parent', 'b')->addSelect('b.id as parent_id')
+                    ->select('a.id, a.name')
+                    ->join('a.parent', 'b')
+                    ->addSelect('b.id as parent_id')
                     ->getQuery();
         return $query->getResult();
     }

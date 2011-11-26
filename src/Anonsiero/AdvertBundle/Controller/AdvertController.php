@@ -5,6 +5,8 @@ namespace Anonsiero\AdvertBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Anonsiero\AdvertBundle\Form\AddForm;
+use Anonsiero\AdvertBundle\Entity\Advert;
 
 /**
  * @Route("/advert")
@@ -23,13 +25,36 @@ class AdvertController extends Controller
     }
     
     /**
-     * @Route("/adverts/{id}", name="_adverts")
+     * @Route("/category/{idCategory}", name="_adverts")
      * @Template()
      */
-    public function advertsAction($id)
+    public function advertsAction($idCategory)
     {
-        $category = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->find($id);
-        return array('category' => $category);
+        $categories = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
+        $categoriesTree = $this->makeTree($categories);
+        $adverts = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvertsOfCategory($idCategory, $this->getSubcategoriesID($idCategory, $categoriesTree));
+        return array('adverts' => $adverts);
+    }
+    
+    /**
+     * @Route("/id/{idAdvert}", name="_advert")
+     * @Template()
+     */
+    public function advertAction($idAdvert)
+    {
+        $advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvert($idAdvert);
+        return array('advert' => $advert);
+    }
+    
+    /**
+     * @Route("/add", name="_add")
+     * @Template()
+     */
+    public function addAction()
+    {
+        $entity = new Advert();
+        $form = $this->createForm(new AddForm(), $entity);
+        return $this->render('AnonsieroAdvertBundle:Advert:add.html.twig');
     }
     
     /**
@@ -45,5 +70,22 @@ class AdvertController extends Controller
             return $tree;
         }
         return null;
+    }
+    
+    /**
+     * Metoda pobiera id podkategorii danej kategorii.
+     * @param id $id
+     * @param array $array
+     * @param array $ids
+     * @return array 
+     */
+    public function getSubcategoriesID($id, $array, $ids = array()) {
+        if (isset($array[$id]) && is_array($array[$id])) {
+            foreach ($array[$id] as $sub) {
+                $ids[] = $sub['id'];
+                $ids = array_merge($ids, $this->getSubcategoriesID($sub['id'], $array, $ids));
+            }
+        }
+        return array_unique($ids, 3);
     }
 }

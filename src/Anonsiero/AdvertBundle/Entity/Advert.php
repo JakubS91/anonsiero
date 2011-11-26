@@ -58,11 +58,11 @@ class Advert
     private $price;
     
     /**
-     * @var boolean $negotition
+     * @var boolean $negotiation
      *
-     * @ORM\Column(name="negotition", type="boolean")
+     * @ORM\Column(name="negotiation", type="boolean")
      */
-    private $negotition;
+    private $negotiation;
     
     /**
      * @var integer $status
@@ -234,9 +234,9 @@ class Advert
      *
      * @param boolean $negotition
      */
-    public function setNegotition($negotition)
+    public function setNegotiation($negotition)
     {
-        $this->negotition = $negotition;
+        $this->negotiation = $negotition;
     }
 
     /**
@@ -244,9 +244,9 @@ class Advert
      *
      * @return boolean 
      */
-    public function getNegotition()
+    public function getNegotiation()
     {
-        return $this->negotition;
+        return $this->negotiation;
     }
 
     /**

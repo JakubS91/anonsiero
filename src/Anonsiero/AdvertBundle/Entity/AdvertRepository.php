@@ -12,4 +12,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdvertRepository extends EntityRepository
 {
+    /**
+     * Metoda zwraca wszystkie oferty z danej kategorii i daynych podkategorii.
+     * @param int $idCategory
+     * @param array $idSubategories
+     * @return Adverts 
+     */
+    public function getAdvertsOfCategory($idCategory, $idSubategories = array()) {
+        $predicates = 'b.id = '.$idCategory; 
+        if ($idSubategories != array()) {
+            foreach($idSubategories as $id) {
+                $predicates = $predicates.' OR b.id = '.$id;
+            }
+        }
+        $query = $this->createQueryBuilder('a')
+                    ->select('a.id, a.name, a.short_desc, a.price, a.date_added, a.negotiation')
+                    ->join('a.category', 'b')
+                    ->where($predicates)
+                    ->getQuery();
+        return $query->getResult();
+    }
+    
+    public function getAdvert($id) {
+        $advert = $this->createQueryBuilder("a")
+                ->select("a.id, a.name as title, a.date_added, a.description, a.price, a.negotiation, b.name, c.username")
+                ->join("a.category", "b")
+                ->join("a.user", "c")
+                ->where("a.id = $id")
+                ->getQuery()
+                ->getOneOrNullResult();
+        return $advert;
+    }
 }
