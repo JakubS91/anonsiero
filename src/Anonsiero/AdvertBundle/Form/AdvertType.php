@@ -1,11 +1,11 @@
 <?php
 
-namespace Anonsiero\AdvertBundle\Form\AddForm;
+namespace Anonsiero\AdvertBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class AddForm extends AbstractType
+class AdvertType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {

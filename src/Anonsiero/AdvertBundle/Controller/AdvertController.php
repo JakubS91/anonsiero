@@ -5,7 +5,7 @@ namespace Anonsiero\AdvertBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Anonsiero\AdvertBundle\Form\AddForm;
+use Anonsiero\AdvertBundle\Form\AdvertType;
 use Anonsiero\AdvertBundle\Entity\Advert;
 
 /**
@@ -53,8 +53,8 @@ class AdvertController extends Controller
     public function addAction()
     {
         $entity = new Advert();
-        $form = $this->createForm(new AddForm(), $entity);
-        return $this->render('AnonsieroAdvertBundle:Advert:add.html.twig');
+        $form = $this->createForm(new AdvertType(), $entity);
+        return $this->render('AnonsieroAdvertBundle:Advert:add.html.twig', array('form' => $form->createView()));
     }
     
     /**
