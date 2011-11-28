@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Anonsiero\UserBundle\AnonsieroUserBundle(),
             new Anonsiero\HomepageBundle\AnonsieroHomepageBundle(),
             new Anonsiero\AdvertBundle\AnonsieroAdvertBundle(),
+            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
