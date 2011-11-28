@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Anonsiero\AdvertBundle\Form\AdvertType;
 use Anonsiero\AdvertBundle\Entity\Advert;
+use Anonsiero\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/advert")
@@ -14,46 +16,50 @@ use Anonsiero\AdvertBundle\Entity\Advert;
 class AdvertController extends Controller
 {  
     /**
-     * @Route()
+     * @Route("/{idCategory}", name="advert_index", defaults={"idCategory"="1"}, requirements={"idCategory"="\d+"})
      * @Template()
      */
-    public function indexAction()
-    {
-        $categories = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
-        $categoriesTree = $this->makeTree($categories);
-        return array('categoriesTree' => $categoriesTree);
-    }
-    
-    /**
-     * @Route("/category/{idCategory}", name="_adverts")
-     * @Template()
-     */
-    public function advertsAction($idCategory)
-    {
+    public function indexAction($idCategory) {
         $categories = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
         $categoriesTree = $this->makeTree($categories);
         $adverts = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvertsOfCategory($idCategory, $this->getSubcategoriesID($idCategory, $categoriesTree));
-        return array('adverts' => $adverts);
+        return array(
+            'categoriesTree' => $categoriesTree,
+            'adverts'        => $adverts
+            );
     }
     
     /**
-     * @Route("/id/{idAdvert}", name="_advert")
+     * @Route("/show/{idAdvert}", name="advert_show")
      * @Template()
      */
-    public function advertAction($idAdvert)
-    {
+    public function showAction($idAdvert) {
         $advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvert($idAdvert);
         return array('advert' => $advert);
     }
     
     /**
-     * @Route("/add", name="_add")
+     * @Route("/add", name="advert_add")
      * @Template()
      */
-    public function addAction()
-    {
+    public function addAction() {
+//        $user = $this->get('security.context')->getToken()->getUser();
+//        if (!is_object($user) || !$user instanceof User) {
+//            throw new AccessDeniedException("This user does not have access to this section.");
+//        }
         $entity = new Advert();
         $form = $this->createForm(new AdvertType(), $entity);
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            var_dump($form->getErrors());
+            $entity->setUser($user);
+            $entity->setDateAdded(date("Y-m-d H:i:s"));
+            if ($form->isValid()) {
+                echo 'op';
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
         return $this->render('AnonsieroAdvertBundle:Advert:add.html.twig', array('form' => $form->createView()));
     }
     

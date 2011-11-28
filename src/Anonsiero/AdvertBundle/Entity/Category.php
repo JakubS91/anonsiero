@@ -177,4 +177,20 @@ class Category
     {
         return $this->fields;
     }
+
+    public function __toString()
+    {
+        return (string)$this->name;
+    }
+
+
+    /**
+     * Add childrens
+     *
+     * @param Anonsiero\AdvertBundle\Entity\Category $childrens
+     */
+    public function addCategory(\Anonsiero\AdvertBundle\Entity\Category $childrens)
+    {
+        $this->childrens[] = $childrens;
+    }
 }

@@ -4,6 +4,7 @@ namespace Anonsiero\AdvertBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Anonsiero\AdvertBundle\Entity\Advert
@@ -53,23 +54,26 @@ class Advert
     /**
      * @var decimal $price
      *
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+(\.[0-9]{1,2}){0,1}$/",
+     *     message="Podana cena jest nieprawidłowa."
+     * )
      * @ORM\Column(name="price", type="decimal", scale=2)
      */
     private $price;
     
     /**
      * @var boolean $negotiation
-     *
      * @ORM\Column(name="negotiation", type="boolean")
      */
     private $negotiation;
     
     /**
-     * @var integer $status
+     * @var boolean $deleted
      *
-     * @ORM\Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="deleted", type="boolean", nullable=true)
      */
-    private $status;
+    private $deleted;
     
     /**
      * @var string $country
@@ -91,6 +95,20 @@ class Advert
      * @ORM\Column(name="city", type="string", length=50, nullable=true)
      */
     private $city;
+    
+    /**
+     * @var string $postcode
+     *
+     * @ORM\Column(name="postcode", type="string", length=6, nullable=true)
+     */
+    private $postcode;
+    
+    /**
+     * @var string $street
+     *
+     * @ORM\Column(name="street", type="string", length=50, nullable=true)
+     */
+    private $street;
     
     /**
      * @var User $user
@@ -367,5 +385,65 @@ class Advert
     public function getAdvertHasFields()
     {
         return $this->advertHasFields;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set postcode
+     *
+     * @param string $postcode
+     */
+    public function setPostcode($postcode)
+    {
+        $this->postcode = $postcode;
+    }
+
+    /**
+     * Get postcode
+     *
+     * @return string 
+     */
+    public function getPostcode()
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string 
+     */
+    public function getStreet()
+    {
+        return $this->street;
     }
 }

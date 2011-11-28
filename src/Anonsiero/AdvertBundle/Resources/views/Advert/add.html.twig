@@ -1,5 +1,34 @@
-<form action="{{ path('_add') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
-    <input type="submit" />
+<form action="{{ path('advert_add') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form.price) }}
+        {{ form_errors(form) }}
+    <div>
+        {{ form_label(form.name, 'advert.add.name'|trans) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div>
+        {{ form_label(form.category, 'advert.add.category'|trans) }}
+        {{ form_widget(form.category) }}
+    </div>
+    <div>
+        {{ form_label(form.short_desc, 'advert.add.short_desc'|trans) }}
+        {{ form_widget(form.short_desc) }}
+    </div>
+    <div>
+        {{ form_label(form.description, 'advert.add.description'|trans) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div>
+        {{ form_label(form.price, 'advert.add.price'|trans) }}
+        {{ form_widget(form.price) }}
+    </div>
+    <div>
+        {{ form_label(form.negotiation, 'advert.add.negotiation'|trans) }}
+        {{ form_widget(form.negotiation) }}
+    </div>
+    <div>
+        {{ form_label(form.country, 'advert.add.country'|trans) }}
+        {{ form_widget(form.country) }}
+    </div>{{ form_rest(form) }}
+    <input value="{{ 'advert.add.send'|trans }}" type="submit" />
+    
 </form>
