@@ -27,12 +27,6 @@ class City
     private $name;
     
     /**
-     * @ORM\Column(name="postcode", type="string")
-     * @Assert\Regex(pattern="/^\d{2}-\d{3}/", message="Nieprawidłowy kod pocztowy")
-     */
-    private $postcode;
-    
-    /**
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="cities")
      */
     private $province;
@@ -70,26 +64,6 @@ class City
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set postcode
-     *
-     * @param string $postcode
-     */
-    public function setPostcode($postcode)
-    {
-        $this->postcode = $postcode;
-    }
-
-    /**
-     * Get postcode
-     *
-     * @return string 
-     */
-    public function getPostcode()
-    {
-        return $this->postcode;
     }
 
     /**

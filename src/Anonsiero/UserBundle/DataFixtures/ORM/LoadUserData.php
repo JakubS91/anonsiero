@@ -33,6 +33,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setPlainPassword($val[0]);
             $user->setEmail($val[1]);
             $user->setEmailCanonical($val[1]);
+            $user->setEnabled(true);
             $user->addGroup($manager->merge($this->getReference($val[2].'-group')));
             $manager->persist($user);
         }
