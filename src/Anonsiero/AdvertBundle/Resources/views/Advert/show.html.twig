@@ -1,10 +1,27 @@
 <div>
-    {% if advert.negotiation == 1 %}
+    {% if advert.getNegotiation == 1 %}
         {% set negotiation = 'advert.show.negotiationtrue'|trans %}
     {% else %}
         {% set negotiation = 'advert.show.negotiationfalse'|trans %}
     {% endif %}
-    <div>{{ advert.title }} - {{ advert.price }}zł ({{ negotiation }})</div>
-    <div>Data dodanie: {{ advert.date_added }}</div>
-    <div>{{ advert.description }}</div>
+    <div>{{ advert.getName }} - {{ advert.getPrice }}zł ({{ negotiation }})</div>
+    <div>Data dodanie: {{ advert.getDateAdded.format('H:i:s d-m-Y') }}</div>
+    {% if advert.getOtherAdress == 0 %}
+        {% set city_name = advert.user.city.getName %}
+        {% set province_name = advert.user.province.name %}
+        {% set phone = advert.user.phone %}
+        {% set postcode = advert.user.postcode %}
+        {% set street = advert.user.street %}
+    {% else %}
+        {% set city_name = advert.city.name %}
+        {% set province_name = advert.province.name %}
+        {% set phone = advert.phone %}
+        {% set postcode = advert.postcode %}
+        {% set street = advert.street %}
+    {% endif %}
+    <div>{{ 'advert.show.city_name'|trans }}: {{ city_name }}</div>
+    <div>{{'advert.show.province_name'|trans }}: {{ province_name }}</div>
+    <div>{{'advert.show.phone'|trans }}: {{ phone }}</div>
+    <div>{{'advert.show.postcode'|trans }}: {{ postcode }}</div>
+    <div>{{'advert.show.street'|trans }}: {{ street }}</div>
 </div>

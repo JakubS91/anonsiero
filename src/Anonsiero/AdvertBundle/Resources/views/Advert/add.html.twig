@@ -1,6 +1,7 @@
 <form action="{{ path('advert_add') }}" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form.price) }}
     {{ form_errors(form.postcode) }}
+    {{ form_errors(form.phone) }}
     <div>
         {{ form_label(form.name, 'advert.add.name'|trans) }}
         {{ form_widget(form.name) }}
@@ -26,14 +27,10 @@
         {{ form_widget(form.negotiation) }}
     </div>
     <div>
-        <label>{{ 'advert.add.otheradress'|trans }}</label>
-        <input id="advertbundle_add_otheradress" type="checkbox" onchange="enableOtherAdress()" />
+        {{ form_label(form.other_adress, 'advert.add.other_adress'|trans) }}
+        {{ form_widget(form.other_adress, { 'attr': {'onchange': 'enableOtherAdress()'} }) }}
     </div>
-    <div id="advertbundle_add_otheradress_fields">
-        <div>
-            {{ form_label(form.country, 'advert.add.country'|trans) }}
-            {{ form_widget(form.country) }}
-        </div>
+    <div id="advertbundle_add_other_adress_fields">
         <div>
             {{ form_label(form.province, 'advert.add.province'|trans) }}
             {{ form_widget(form.province) }}
@@ -50,6 +47,10 @@
             {{ form_label(form.street, 'advert.add.street'|trans) }}
             {{ form_widget(form.street) }}
         </div>
+        <div>
+            {{ form_label(form.phone, 'advert.add.phone'|trans) }}
+            {{ form_widget(form.phone) }}
+        </div>
     </div>
     {{ form_rest(form) }}
     <input value="{{ 'advert.add.send'|trans }}" type="submit" />
@@ -57,8 +58,8 @@
 
 <script type="text/javascript">
     function enableOtherAdress(){
-        var e = document.getElementById("advertbundle_add_otheradress");
-        var elements = document.getElementById("advertbundle_add_otheradress_fields").getElementsByTagName("input");
+        var e = document.getElementById("advertbundle_add_other_adress");
+        var elements = document.getElementById("advertbundle_add_other_adress_fields").getElementsByTagName("input");
         if (e.checked==true) {
             for (elem in elements) {
                 elements[elem].setAttribute('required', 'required');

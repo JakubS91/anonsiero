@@ -17,10 +17,13 @@ class AdvertType extends AbstractType
                 'class' => 'AnonsieroAdvertBundle:Category'
             ))
             ->add('price', 'text')
+            ->add('other_adress', 'checkbox', array(
+                'required'  => false
+            ))
             ->add('negotiation', 'checkbox', array(
                 'required'  => false
             ))
-            ->add('country', 'text', array(
+            ->add('phone', 'text', array(
                 'required'  => false
             ))
             ->add('province', 'text', array(

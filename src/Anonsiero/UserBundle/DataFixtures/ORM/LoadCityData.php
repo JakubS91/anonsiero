@@ -30,6 +30,7 @@ class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
             $city = new City();
             $city->setName($val[0]);
             $city->setProvince($manager->merge($this->getReference($val[1].'-province')));
+            $this->addReference($val[0].'-city', $city);
             $manager->persist($city);
         }
         $manager->flush();
@@ -37,7 +38,7 @@ class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
     
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }
 

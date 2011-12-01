@@ -26,10 +26,10 @@ class AdvertRepository extends EntityRepository
             }
         }
         $query = $this->createQueryBuilder('a')
-                    ->select('a.id, a.name, a.short_desc, a.price, a.date_added, a.negotiation')
-                    ->join('a.category', 'b')
-                    ->where($predicates)
-                    ->getQuery();
+                ->select('a.id, a.name, a.short_desc, a.price, a.date_added, a.negotiation')
+                ->join('a.category', 'b')
+                ->where($predicates)
+                ->getQuery();
         return $query->getResult();
     }
     

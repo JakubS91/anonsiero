@@ -21,11 +21,12 @@ class LoadAdvertData extends AbstractFixture implements OrderedFixtureInterface 
         );
         
         $adverts = array(
-            //'advert_122_1' => array('advert_122_1', 'krótki opis advert_122_1', 'długi opis advert_122_1', '2000', 0, 'kat122', 'prywatna'),
-            'advert_122_2' => array('advert_122_2', 'krótki opis advert_122_2', 'długi opis advert_122_2', '4500', 1, 'kat122', 'firma'),
-            //'advert_121_1' => array('advert_121_1', 'krótki opis advert_121_1', 'długi opis advert_121_1', '1800', 0, 'kat121', 'firma'),
-            //'advert_121_2' => array('advert_121_2', 'krótki opis advert_121_2', 'długi opis advert_121_2', '650', 1, 'kat121', 'prywatna'),
-            //'advert_131_1' => array('advert_131_1', 'krótki opis advert_131_1', 'długi opis advert_131_1', '400', 0, 'kat131', 'prywatna')
+            'advert_122_1' => array('advert_122_1', 'krótki opis advert_122_1', 'długi opis advert_122_1', '2000', 0, 'kat122', 'prywatna', 0),
+            'advert_122_2' => array('advert_122_2', 'krótki opis advert_122_2', 'długi opis advert_122_2', '4500', 1, 'kat122', 'firma', 0),
+            'advert_121_1' => array('advert_121_1', 'krótki opis advert_121_1', 'długi opis advert_121_1', '1800', 0, 'kat121', 'firma', 0),
+            'advert_121_2' => array('advert_121_2', 'krótki opis advert_121_2', 'długi opis advert_121_2', '650', 1, 'kat121', 'prywatna', 0),
+            'advert_121_3' => array('advert_121_3', 'krótki opis advert_121_3', 'długi opis advert_121_3', '650', 1, 'kat121', 'prywatna', 1, 'KP', 'Bydgoszcz', '11-111', 'Fordońska 123', '123123123'),
+            'advert_131_1' => array('advert_131_1', 'krótki opis advert_131_1', 'długi opis advert_131_1', '400', 0, 'kat131', 'prywatna', 0)
         );
 
         foreach ($categories as $key => $val) {
@@ -48,6 +49,14 @@ class LoadAdvertData extends AbstractFixture implements OrderedFixtureInterface 
             $advert->setCategory($manager->merge($this->getReference($val[5].'-category')));
             $advert->setUser($manager->merge($this->getReference($val[6].'-user')));
             $advert->setDateAdded();
+            $advert->setOtherAdress($val[7]);
+            if ($val[7] == 1) {
+                $advert->setProvince($manager->merge($this->getReference($val[8].'-province')));
+                $advert->setCity($manager->merge($this->getReference($val[9].'-city')));
+                $advert->setPostcode($val[10]);
+                $advert->setStreet($val[11]);
+                $advert->setPhone($val[12]);
+            }
             $manager->persist($advert);
         }
         $manager->flush();
@@ -55,7 +64,7 @@ class LoadAdvertData extends AbstractFixture implements OrderedFixtureInterface 
     
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }
 

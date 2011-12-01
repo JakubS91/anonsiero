@@ -16,17 +16,22 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class AdvertController extends Controller
 {  
     /**
-     * @Route("/{idCategory}", name="advert_index", defaults={"idCategory"="1"}, requirements={"idCategory"="\d+"})
+     * @Route("/{idCategory}", name="advert_index", defaults={"idCategory"="-1"}, requirements={"idCategory"="\d+"})
      * @Template()
      */
     public function indexAction($idCategory) {
+        $categoryBase = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->findOneBy(array('parent' => null))->getId();
+        if ($idCategory == -1) {
+            $idCategory = $categoryBase;
+        }
         $category = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
         $categoriesTree = $this->makeTree($category);
         $adverts = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvertsOfCategory($idCategory, $this->getSubcategoriesID($idCategory, $categoriesTree));
         return array(
             'categoriesTree' => $categoriesTree,
+            'categoryBase'   => $categoryBase,
             'adverts'        => $adverts
-            );
+        );
     }
     
     /**
@@ -34,7 +39,8 @@ class AdvertController extends Controller
      * @Template()
      */
     public function showAction($idAdvert) {
-        $advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvert($idAdvert);
+        //$advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvert($idAdvert);
+        $advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->find($idAdvert);
         return array('advert' => $advert);
     }
     

@@ -76,23 +76,36 @@ class Advert
     private $deleted;
     
     /**
-     * @var string $country
+     * @var boolean $other_adress
      *
-     * @ORM\Column(name="country", type="string", length=50, nullable=true)
+     * @ORM\Column(name="other_adress", type="boolean")
      */
-    private $country;
+    private $other_adress;
+    
+    /**
+     * @var string $phone
+     *
+     * @Assert\Regex(
+     *     pattern="/^[0-9]{8,9}$/",
+     *     message="Podany nr telefonu jest nieprawidłowy."
+     * )
+     * @ORM\Column(name="phone", type="string", length=9, nullable=true)
+     */
+    private $phone;
     
     /**
      * @var string $province
      *
-     * @ORM\Column(name="province", type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Anonsiero\UserBundle\Entity\Province", inversedBy="adverts")
+     * @ORM\JoinColumn(name="province", referencedColumnName="id", nullable=true)
      */
     private $province;
     
     /**
      * @var string $city
      *
-     * @ORM\Column(name="city", type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Anonsiero\UserBundle\Entity\City", inversedBy="adverts")
+     * @ORM\JoinColumn(name="city", referencedColumnName="id", nullable=true)
      */
     private $city;
     
@@ -274,21 +287,21 @@ class Advert
     /**
      * Set country
      *
-     * @param string $country
+     * @param string $phone
      */
-    public function setCountry($country)
+    public function setPhone($phone)
     {
-        $this->country = $country;
+        $this->phone = $phone;
     }
 
     /**
-     * Get country
+     * Get phone
      *
      * @return string 
      */
-    public function getCountry()
+    public function getPhone()
     {
-        return $this->country;
+        return $this->phone;
     }
 
     /**
@@ -449,5 +462,25 @@ class Advert
     public function getStreet()
     {
         return $this->street;
+    }
+
+    /**
+     * Set other_adress
+     *
+     * @param boolean $otherAdress
+     */
+    public function setOtherAdress($otherAdress)
+    {
+        $this->other_adress = $otherAdress;
+    }
+
+    /**
+     * Get other_adress
+     *
+     * @return boolean 
+     */
+    public function getOtherAdress()
+    {
+        return $this->other_adress;
     }
 }

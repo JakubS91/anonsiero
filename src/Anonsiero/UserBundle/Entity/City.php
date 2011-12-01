@@ -37,6 +37,11 @@ class City
     private $users;
     
     /**
+     * @ORM\OneToMany(targetEntity="Anonsiero\AdvertBundle\Entity\Advert", mappedBy="city")
+     */
+    private $adverts;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -108,5 +113,25 @@ class City
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add adverts
+     *
+     * @param Anonsiero\AdvertBundle\Entity\Advert $adverts
+     */
+    public function addAdvert(\Anonsiero\AdvertBundle\Entity\Advert $adverts)
+    {
+        $this->adverts[] = $adverts;
+    }
+
+    /**
+     * Get adverts
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAdverts()
+    {
+        return $this->adverts;
     }
 }

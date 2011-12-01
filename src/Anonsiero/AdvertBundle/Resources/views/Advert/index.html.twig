@@ -11,21 +11,7 @@
     {% endif %}
 {% endmacro %}
 
-{#{% macro createTree2(parent) %}
-    {% if parent.childrens is defined %}
-        <ul>
-        {% for children in parent.childrens %}
-            <li>
-                <a href="{{ path('advert_index', { 'idCategory' : children.id }) }}">{{ children.name }}</a>
-                {{ _self.createTree2(children) }}
-            </li>
-        {% endfor %}  
-        </ul>
-    {% endif %}
-{% endmacro %}#}
-
-{{ _self.createTree(25, categoriesTree) }}
-{#{{ _self.createTree2(category) }}#}
+{{ _self.createTree(categoryBase, categoriesTree) }}
 
 {% for advert in adverts %}
 <div>
