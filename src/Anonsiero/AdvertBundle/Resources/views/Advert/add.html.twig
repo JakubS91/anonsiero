@@ -1,5 +1,73 @@
-<form action="{{ path('_add') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
-    <input type="submit" />
+<form action="{{ path('advert_add') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form.price) }}
+    {{ form_errors(form.postcode) }}
+    <div>
+        {{ form_label(form.name, 'advert.add.name'|trans) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div>
+        {{ form_label(form.category, 'advert.add.category'|trans) }}
+        {{ form_widget(form.category) }}
+    </div>
+    <div>
+        {{ form_label(form.short_desc, 'advert.add.short_desc'|trans) }}
+        {{ form_widget(form.short_desc) }}
+    </div>
+    <div>
+        {{ form_label(form.description, 'advert.add.description'|trans) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div>
+        {{ form_label(form.price, 'advert.add.price'|trans) }}
+        {{ form_widget(form.price) }}
+    </div>
+    <div>
+        {{ form_label(form.negotiation, 'advert.add.negotiation'|trans) }}
+        {{ form_widget(form.negotiation) }}
+    </div>
+    <div>
+        <label>{{ 'advert.add.otheradress'|trans }}</label>
+        <input id="advertbundle_add_otheradress" type="checkbox" onchange="enableOtherAdress()" />
+    </div>
+    <div id="advertbundle_add_otheradress_fields">
+        <div>
+            {{ form_label(form.country, 'advert.add.country'|trans) }}
+            {{ form_widget(form.country) }}
+        </div>
+        <div>
+            {{ form_label(form.province, 'advert.add.province'|trans) }}
+            {{ form_widget(form.province) }}
+        </div>
+        <div>
+            {{ form_label(form.city, 'advert.add.city'|trans) }}
+            {{ form_widget(form.city) }}
+        </div>
+        <div>
+            {{ form_label(form.postcode, 'advert.add.postcode'|trans) }}
+            {{ form_widget(form.postcode) }}
+        </div>
+        <div>
+            {{ form_label(form.street, 'advert.add.street'|trans) }}
+            {{ form_widget(form.street) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <input value="{{ 'advert.add.send'|trans }}" type="submit" />
 </form>
+
+<script type="text/javascript">
+    function enableOtherAdress(){
+        var e = document.getElementById("advertbundle_add_otheradress");
+        var elements = document.getElementById("advertbundle_add_otheradress_fields").getElementsByTagName("input");
+        if (e.checked==true) {
+            for (elem in elements) {
+                elements[elem].setAttribute('required', 'required');
+            }
+        }
+        else {
+            for (elem in elements) {
+                elements[elem].removeAttribute('required');
+            }
+        }
+    }
+</script>

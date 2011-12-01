@@ -13,8 +13,28 @@ class AdvertType extends AbstractType
             ->add('name', 'text')
             ->add('short_desc', 'textarea')
             ->add('description', 'textarea')
-            ->add('price', 'money', array('precision' => 2, 'currency' => 'PL'))
-            ->add('negotiation', 'checkbox');        
+            ->add('category', 'entity', array(
+                'class' => 'AnonsieroAdvertBundle:Category'
+            ))
+            ->add('price', 'text')
+            ->add('negotiation', 'checkbox', array(
+                'required'  => false
+            ))
+            ->add('country', 'text', array(
+                'required'  => false
+            ))
+            ->add('province', 'text', array(
+                'required'  => false
+            ))
+            ->add('city', 'text', array(
+                'required'  => false
+            ))
+            ->add('postcode', 'text', array(
+                'required'  => false
+            ))
+            ->add('street', 'text', array(
+                'required'  => false
+            ));        
     }
     
     public function getDefaultOptions(array $options)
