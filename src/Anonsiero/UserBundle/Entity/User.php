@@ -52,7 +52,7 @@ class User extends BaseUser
     private $local_number;
     
     /**
-     * @ORM\Column(name="$phone", type="bigint", nullable="true")
+     * @ORM\Column(name="phone", type="bigint", nullable="true")
      * @Assert\Regex(pattern="/^[0-9]{9}$/", message="Nieprawidłowy numer telefonu")
      */
     private $phone;
@@ -231,7 +231,7 @@ class User extends BaseUser
      *
      * @param phone $phone
      */
-    public function setPhone(\phone $phone)
+    public function setPhone($phone)
     {
         $this->phone = $phone;
     }
