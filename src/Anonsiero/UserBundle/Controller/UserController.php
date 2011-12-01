@@ -6,11 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * @Route("/users")
+ */
 class UserController extends Controller
 {
     /**
-     * @Route("/index", name="user_show")
-     * @Template(AnonsieroUserBundle:User:index.html.twig)
+     * @Route("/", name="user_show")
+     * @Template("AnonsieroUserBundle:User:index.html.twig")
      */
     public function indexAction() {
         $users = $this->getDoctrine()->getRepository('AnonsieroUserBundle:User')->findAll();
