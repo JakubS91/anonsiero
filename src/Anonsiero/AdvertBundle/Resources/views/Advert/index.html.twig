@@ -11,14 +11,28 @@
     {% endif %}
 {% endmacro %}
 
-{{ _self.createTree(1, categoriesTree) }}
+{#{% macro createTree2(parent) %}
+    {% if parent.childrens is defined %}
+        <ul>
+        {% for children in parent.childrens %}
+            <li>
+                <a href="{{ path('advert_index', { 'idCategory' : children.id }) }}">{{ children.name }}</a>
+                {{ _self.createTree2(children) }}
+            </li>
+        {% endfor %}  
+        </ul>
+    {% endif %}
+{% endmacro %}#}
+
+{{ _self.createTree(25, categoriesTree) }}
+{#{{ _self.createTree2(category) }}#}
 
 {% for advert in adverts %}
 <div>
     {% if advert.negotiation == 1 %}
-        {% set negotiation = 'Cena do negocjacji.' %}
+        {% set negotiation = 'advert.index.negotiationtrue'|trans %}
     {% else %}
-        {% set negotiation = 'Cena nie podlega negocjacji.' %}
+        {% set negotiation = 'advert.index.negotiationfalse'|trans %}
     {% endif %}
     <div><a href="{{ path('advert_show', { 'idAdvert' : advert.id }) }}" >{{ advert.name }}</a> - {{ advert.price }}zł ({{ negotiation }})</div>
     <div>Data dodanie: {{ advert.date_added }}</div>

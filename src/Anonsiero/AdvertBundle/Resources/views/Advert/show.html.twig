@@ -1,8 +1,8 @@
 <div>
     {% if advert.negotiation == 1 %}
-        {% set negotiation = 'Cena do negocjacji.' %}
+        {% set negotiation = 'advert.show.negotiationtrue'|trans %}
     {% else %}
-        {% set negotiation = 'Cena nie podlega negocjacji.' %}
+        {% set negotiation = 'advert.show.negotiationfalse'|trans %}
     {% endif %}
     <div>{{ advert.title }} - {{ advert.price }}zł ({{ negotiation }})</div>
     <div>Data dodanie: {{ advert.date_added }}</div>

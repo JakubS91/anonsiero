@@ -20,8 +20,8 @@ class AdvertController extends Controller
      * @Template()
      */
     public function indexAction($idCategory) {
-        $categories = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
-        $categoriesTree = $this->makeTree($categories);
+        $category = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Category')->getCategories();
+        $categoriesTree = $this->makeTree($category);
         $adverts = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvertsOfCategory($idCategory, $this->getSubcategoriesID($idCategory, $categoriesTree));
         return array(
             'categoriesTree' => $categoriesTree,
@@ -43,20 +43,21 @@ class AdvertController extends Controller
      * @Template()
      */
     public function addAction() {
-//        $user = $this->get('security.context')->getToken()->getUser();
-//        if (!is_object($user) || !$user instanceof User) {
-//            throw new AccessDeniedException("This user does not have access to this section.");
-//        }
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof User) {
+            throw new AccessDeniedException("This user does not have access to this section.");
+        }
         $entity = new Advert();
         $form = $this->createForm(new AdvertType(), $entity);
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
-            var_dump($form->getErrors());
             $entity->setUser($user);
-            $entity->setDateAdded(date("Y-m-d H:i:s"));
+            $entity->setDateAdded();
             if ($form->isValid()) {
-                echo 'op';
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($entity);
+                $em->flush();
                 return $this->redirect($this->generateUrl('homepage'));
             }
         }

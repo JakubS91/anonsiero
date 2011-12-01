@@ -99,6 +99,10 @@ class Advert
     /**
      * @var string $postcode
      *
+     * @Assert\Regex(
+     *     pattern="/^[0-9]{2}-[0-9]{3}$/",
+     *     message="Podana kod pocztowy jest nieprawidłowy."
+     * )
      * @ORM\Column(name="postcode", type="string", length=6, nullable=true)
      */
     private $postcode;
@@ -172,9 +176,9 @@ class Advert
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded)
+    public function setDateAdded()
     {
-        $this->date_added = $dateAdded;
+        $this->date_added = new \DateTime('now');
     }
 
     /**

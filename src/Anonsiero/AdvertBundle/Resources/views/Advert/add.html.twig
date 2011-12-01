@@ -1,6 +1,6 @@
 <form action="{{ path('advert_add') }}" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form.price) }}
-        {{ form_errors(form) }}
+    {{ form_errors(form.postcode) }}
     <div>
         {{ form_label(form.name, 'advert.add.name'|trans) }}
         {{ form_widget(form.name) }}
@@ -26,9 +26,48 @@
         {{ form_widget(form.negotiation) }}
     </div>
     <div>
-        {{ form_label(form.country, 'advert.add.country'|trans) }}
-        {{ form_widget(form.country) }}
-    </div>{{ form_rest(form) }}
+        <label>{{ 'advert.add.otheradress'|trans }}</label>
+        <input id="advertbundle_add_otheradress" type="checkbox" onchange="enableOtherAdress()" />
+    </div>
+    <div id="advertbundle_add_otheradress_fields">
+        <div>
+            {{ form_label(form.country, 'advert.add.country'|trans) }}
+            {{ form_widget(form.country) }}
+        </div>
+        <div>
+            {{ form_label(form.province, 'advert.add.province'|trans) }}
+            {{ form_widget(form.province) }}
+        </div>
+        <div>
+            {{ form_label(form.city, 'advert.add.city'|trans) }}
+            {{ form_widget(form.city) }}
+        </div>
+        <div>
+            {{ form_label(form.postcode, 'advert.add.postcode'|trans) }}
+            {{ form_widget(form.postcode) }}
+        </div>
+        <div>
+            {{ form_label(form.street, 'advert.add.street'|trans) }}
+            {{ form_widget(form.street) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
     <input value="{{ 'advert.add.send'|trans }}" type="submit" />
-    
 </form>
+
+<script type="text/javascript">
+    function enableOtherAdress(){
+        var e = document.getElementById("advertbundle_add_otheradress");
+        var elements = document.getElementById("advertbundle_add_otheradress_fields").getElementsByTagName("input");
+        if (e.checked==true) {
+            for (elem in elements) {
+                elements[elem].setAttribute('required', 'required');
+            }
+        }
+        else {
+            for (elem in elements) {
+                elements[elem].removeAttribute('required');
+            }
+        }
+    }
+</script>

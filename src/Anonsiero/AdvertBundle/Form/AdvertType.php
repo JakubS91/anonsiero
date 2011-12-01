@@ -22,6 +22,18 @@ class AdvertType extends AbstractType
             ))
             ->add('country', 'text', array(
                 'required'  => false
+            ))
+            ->add('province', 'text', array(
+                'required'  => false
+            ))
+            ->add('city', 'text', array(
+                'required'  => false
+            ))
+            ->add('postcode', 'text', array(
+                'required'  => false
+            ))
+            ->add('street', 'text', array(
+                'required'  => false
             ));        
     }
     
