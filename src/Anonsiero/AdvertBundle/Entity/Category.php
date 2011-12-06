@@ -183,7 +183,6 @@ class Category
         return (string)$this->name;
     }
 
-
     /**
      * Add childrens
      *

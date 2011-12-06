@@ -1,0 +1,81 @@
+<form action="{{ path('advert_edit', {'id': advert.getId}) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form.price) }}
+    {{ form_errors(form.postcode) }}
+    {{ form_errors(form.phone) }}
+    <div>
+        {{ form_label(form.name, 'advert.add.name'|trans) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div>
+        {{ form_label(form.category, 'advert.add.category'|trans) }}
+        {{ form_widget(form.category) }}
+    </div>
+    <div>
+        {{ form_label(form.short_desc, 'advert.add.short_desc'|trans) }}
+        {{ form_widget(form.short_desc) }}
+    </div>
+    <div>
+        {{ form_label(form.description, 'advert.add.description'|trans) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div>
+        {{ form_label(form.price, 'advert.add.price'|trans) }}
+        {{ form_widget(form.price) }}
+    </div>
+    <div>
+        {{ form_label(form.negotiation, 'advert.add.negotiation'|trans) }}
+        {{ form_widget(form.negotiation) }}
+    </div>
+    <div>
+        {{ form_label(form.other_adress, 'advert.add.other_adress'|trans) }}
+        {{ form_widget(form.other_adress, { 'attr': {'onchange': 'enableOtherAdress()'} }) }}
+    </div>
+    <div id="advertbundle_add_other_adress_fields">
+        <div>
+            {{ form_label(form.province, 'advert.add.province'|trans) }}
+            {{ form_widget(form.province) }}
+        </div>
+        <div>
+            {{ form_label(form.city, 'advert.add.city'|trans) }}
+            {{ form_widget(form.city) }}
+        </div>
+        <div>
+            {{ form_label(form.postcode, 'advert.add.postcode'|trans) }}
+            {{ form_widget(form.postcode) }}
+        </div>
+        <div>
+            {{ form_label(form.street, 'advert.add.street'|trans) }}
+            {{ form_widget(form.street) }}
+        </div>
+        <div>
+            {{ form_label(form.phone, 'advert.add.phone'|trans) }}
+            {{ form_widget(form.phone) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <input value="{{ 'advert.add.save'|trans }}" type="submit" />
+</form>
+
+<script type="text/javascript">
+    function enableOtherAdress(){
+        var e = document.getElementById("advertbundle_add_other_adress");
+        var inputs = document.getElementById("advertbundle_add_other_adress_fields").getElementsByTagName("input");
+        var selects = document.getElementById("advertbundle_add_other_adress_fields").getElementsByTagName("select");
+        if (e.checked==true) {
+            for (var i=0; i<selects.length; i++) {
+                selects[i].setAttribute('required', 'required');
+            }
+            for (var i=0; i<inputs.length; i++) {
+                inputs[i].setAttribute('required', 'required');
+            }
+        }
+        else {
+            for (var i=0; i<inputs.length; i++) {
+                inputs[i].removeAttribute('required');
+           }
+        for (var i=0; i<inputs.length; i++) {
+                selects[i].removeAttribute('required');
+            }
+        }
+    }
+</script>

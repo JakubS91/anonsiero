@@ -137,4 +137,9 @@ class Province
     {
         return $this->adverts;
     }
+    
+    public function __toString()
+    {
+        return (string)$this->name;
+    }
 }

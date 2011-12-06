@@ -11,6 +11,7 @@ advert.add.city: "Miasto"
 advert.add.postcode: "Kod pocztowy"
 advert.add.street: "Ulica"
 advert.add.other_adress: "Inny adres użytkownika"
+advert.add.save: "Zapisz"
 
 advert.show.negotiationtrue: "Cena do negocjacji"
 advert.show.negotiationfalse: "Cena nie podlega negocjacji"

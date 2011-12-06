@@ -38,6 +38,13 @@ class Advert
     private $date_added;
     
     /**
+     * @var date $date_end
+     *
+     * @ORM\Column(name="date_end", type="datetime")
+     */
+    private $date_end;
+    
+    /**
      * @var string $short_desc
      *
      * @ORM\Column(name="short_desc", type="text")
@@ -482,5 +489,25 @@ class Advert
     public function getOtherAdress()
     {
         return $this->other_adress;
+    }
+
+    /**
+     * Set date_end
+     *
+     * @param int $day liczba dni aktywności oferty
+     */
+    public function setDateEnd($day)
+    {
+        $this->date_end = new \DateTime('now +'.$day.' day');
+    }
+
+    /**
+     * Get date_end
+     *
+     * @return datetime 
+     */
+    public function getDateEnd()
+    {
+        return $this->date_end;
     }
 }

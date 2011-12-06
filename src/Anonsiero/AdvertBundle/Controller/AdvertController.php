@@ -39,9 +39,12 @@ class AdvertController extends Controller
      * @Template()
      */
     public function showAction($idAdvert) {
-        //$advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->getAdvert($idAdvert);
         $advert = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->find($idAdvert);
-        return array('advert' => $advert);
+        $datenow = new \DateTime('now'); $advert->getDateEnd();
+        return array(
+            'advert' => $advert,
+            'advert_end' => $datenow->diff($advert->getDateEnd())
+        );
     }
     
     /**
@@ -60,6 +63,7 @@ class AdvertController extends Controller
             $form->bindRequest($request);
             $entity->setUser($user);
             $entity->setDateAdded();
+            $entity->setDateEnd(14);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($entity);
@@ -68,6 +72,42 @@ class AdvertController extends Controller
             }
         }
         return $this->render('AnonsieroAdvertBundle:Advert:add.html.twig', array('form' => $form->createView()));
+    }
+    
+    /**
+     * @Route("/edit/{id}", name="advert_edit")
+     * @Template()
+     */
+    public function editAction($id) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof User) {
+            throw new AccessDeniedException("This user does not have access to this section.");
+        }
+        $entity = $this->getDoctrine()->getRepository('AnonsieroAdvertBundle:Advert')->find($id);
+        if ($user->getId() != $entity->getUser()->getId()) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        $form = $this->createForm(new AdvertType(), $entity);
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if (!$form->getData()->getOtherAdress()) {
+                $entity->setProvince(NULL);
+                $entity->setCity(NULL);
+                $entity->setPostcode(NULL);
+                $entity->setStreet(NULL);
+                $entity->setPhone(NULL);
+            }
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->flush();
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+        return $this->render('AnonsieroAdvertBundle:Advert:edit.html.twig', array(
+            'form' => $form->createView(),
+            'advert' => $entity
+        ));
     }
     
     /**

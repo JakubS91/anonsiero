@@ -26,11 +26,13 @@ class AdvertType extends AbstractType
             ->add('phone', 'text', array(
                 'required'  => false
             ))
-            ->add('province', 'text', array(
-                'required'  => false
+            ->add('province', 'entity', array(
+                'required'  => false,
+                'class' => 'AnonsieroUserBundle:Province'
             ))
-            ->add('city', 'text', array(
-                'required'  => false
+            ->add('city', 'entity', array(
+                'required'  => false,
+                'class' => 'AnonsieroUserBundle:City'
             ))
             ->add('postcode', 'text', array(
                 'required'  => false
